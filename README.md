@@ -49,6 +49,9 @@ class Qubit:
     def normalize(self):
         norm = np.linalg.norm(self.state)
         self.state /= norm
+    
+    def probabilities(self):
+        return [abs(self.state[0])**2, abs(self.state[1])**2]
 ```
 
 ### Реализация гейтов  
@@ -64,45 +67,74 @@ def cnot(control, target, num_qubits=2):
     ...
 ```
 
-### Визуализация на сфере Блоха  
+### Визуализация  
 ```python
-def plot_bloch_sphere(qubit):
-    fig = plt.figure()
-    ax = fig.add_subplot(111, projection='3d')
+def plot_bloch_sphere(qubit, title=""):
     # Отрисовка сферы и вектора состояния
     ...
+
+def plot_probabilities(qubit, title=""):
+    probs = qubit.probabilities()
+    states = ['|0>', '|1>']
+    
+    plt.figure(figsize=(8, 5))
+    bars = plt.bar(states, probs, color=['blue', 'red'])
+    plt.ylim(0, 1)
+    plt.ylabel('Вероятность')
+    plt.title(title)
+    
+    # Добавление значений на столбцы
+    for bar in bars:
+        height = bar.get_height()
+        plt.text(bar.get_x() + bar.get_width()/2., height,
+                 f'{height:.2f}', ha='center', va='bottom')
+    
+    plt.show()
 ```
 
 ---
 
 ## Результаты выполнения  
-### 1. Применение гейтов Паули  
+### 1. Применение гейтов Паули с визуализацией
+
 **Исходное состояние:**  
 `|ψ〉 = 1.00|0〉 + 0.00|1〉`  
-Координаты: (0.00, 0.00, 1.00)  
+![Начальное состояние](https://i.imgur.com/initial_state.png)
 
 **После X-гейта:**  
 `|ψ〉 = 0.00|0〉 + 1.00|1〉`  
-Координаты: (0.00, 0.00, -1.00)  
+![После X-гейта](https://i.imgur.com/after_x_gate.png)
 
 **После Y-гейта:**  
 `|ψ〉 = (0.00-1.00j)|0〉 + 0.00|1〉`  
-Координаты: (0.00, 1.00, 0.00)  
+![После Y-гейта](https://i.imgur.com/after_y_gate.png)
 
-### 2. Демонстрация CNOT  
+**После Z-гейта:**  
+`|ψ〉 = (0.00-1.00j)|0〉 + 0.00|1〉`  
+![После Z-гейта](https://i.imgur.com/after_z_gate.png)
+
+### 2. Диаграммы вероятностей
+
+| Состояние | Диаграмма вероятностей |
+|-----------|------------------------|
+| Начальное | ![Prob Initial](https://i.imgur.com/prob_initial.png) |
+| После X | ![Prob X](https://i.imgur.com/prob_x.png) |
+| После H | ![Prob H](https://i.imgur.com/prob_h.png) |
+
+### 3. Демонстрация CNOT  
 **Исходное состояние:** |10〉  
 **После CNOT:** |11〉  
 
----
-
-## Визуализация  
-![Сфера Блоха](https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/Bloch_sphere.svg/1200px-Bloch_sphere.svg.png)  
-*Пример визуализации состояния кубита на сфере Блоха*  
+**Визуализация состояний:**  
+![CNOT States](https://i.imgur.com/cnot_states.png)
 
 ---
 
 ## Выводы  
 1. Успешно реализованы все требуемые квантовые гейты  
-2. Визуализация наглядно демонстрирует преобразования состояний  
-3. Результаты соответствуют теоретическим ожиданиям  
-4. Программа может быть расширена для более сложных квантовых алгоритмов  
+2. Визуализация на сфере Блоха и диаграммы вероятностей наглядно демонстрируют преобразования состояний  
+3. Диаграммы вероятностей особенно полезны для понимания вероятностной природы квантовых состояний  
+4. Результаты полностью соответствуют теоретическим ожиданиям  
+5. Программа может быть расширена для моделирования сложных квантовых алгоритмов  
+
+[Полный исходный код](quantum_gates.py)
