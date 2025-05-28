@@ -108,7 +108,7 @@ plot_bloch_sphere(q, "Начальное состояние")
 
 **После X-гейта:**  
 `|ψ〉 = 0.00|0〉 + 1.00|1〉`  
-
+![image](https://github.com/user-attachments/assets/e8676739-36ae-4516-a183-b6c93cddf9e7)
 ```python
 q.apply_gate(pauli_x())
 plot_probabilities(q, "После X-гейта")
@@ -117,11 +117,22 @@ plot_bloch_sphere(q, "После X-гейта")
 
 **После Y-гейта:**  
 `|ψ〉 = (0.00-1.00j)|0〉 + 0.00|1〉`  
+![image](https://github.com/user-attachments/assets/0a020523-d911-4a33-aaa4-eb0dc7438375)
 
 ```python
 q.apply_gate(pauli_y())
 plot_probabilities(q, "После Y-гейта")
 plot_bloch_sphere(q, "После Y-гейта")
+```
+
+**После  Z-гейта:**
+`|ψ〉 = 0.707|0〉 - 0.707|1`
+![image](https://github.com/user-attachments/assets/3a1b3bfe-923d-477b-8801-54a45e57f0a1)
+
+```python
+q.apply_gate(pauli_z())
+plot_probabilities(q, "После Z-гейта")
+plot_bloch_sphere(q, "После Z-гейта")
 ```
 
 ### 2.Вероятности (примеры вывода)
@@ -133,15 +144,10 @@ plot_bloch_sphere(q, "После Y-гейта")
 |1>: 0.00
 ```
 
-#### После X-гейта:
-```
-Вероятности:
-|0>: 0.00
-|1>: 1.00
-```
-
 #### После H-гейта (Адамара):
 ```
+![image](https://github.com/user-attachments/assets/5f83942f-4a1b-42c1-a974-f03dca34248e)
+
 Вероятности:
 |0>: 0.50
 |1>: 0.50
@@ -160,7 +166,9 @@ plot_bloch_sphere(q, "После Y-гейта")
 
 ### 4. Демонстрация CNOT  
 **Исходное состояние:** |10〉  
-**После CNOT:** |11〉  
+**После CNOT:** |11〉
+![image](https://github.com/user-attachments/assets/19efc7f1-c74f-4372-9b56-d992dfd0150f)
+
 
 ```python
 # Создаем систему из двух кубитов
